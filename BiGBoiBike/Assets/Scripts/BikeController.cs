@@ -5,13 +5,9 @@ using UnityEngine;
 public class BikeController : MonoBehaviour
 {
 
-    public float turnSpeed = 1;
-    public float lerpSpeed = 0.7f;
-    public float angleLimit = 30;
-
+    public float forcePower;
+    public float torquePower;
     public Rigidbody rb;
-
-    public float angleTraveled;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +18,22 @@ public class BikeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            rb.AddForce(transform.forward * forcePower);
+        }
         if (Input.GetKey(KeyCode.D))
         {
-            angleTraveled += turnSpeed * Time.deltaTime;
-            transform.eulerAngles = new Vector3(0, angleTraveled, 0);
-            if (transform.eulerAngles.y > angleLimit)
-            {
-                transform.eulerAngles = new Vector3(0, angleLimit, 0);
-            }
+            rb.AddTorque(transform.up * torquePower);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            rb.AddTorque(transform.up * -torquePower);
         }
     }
 }
