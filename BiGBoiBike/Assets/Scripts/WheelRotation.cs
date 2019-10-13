@@ -18,4 +18,9 @@ public class WheelRotation : MonoBehaviour
     {
         
     }
+
+    private void FixedUpdate()
+    {
+        transform.Rotate(-BikeRb.velocity.magnitude, 0, 0);
+    }
 }

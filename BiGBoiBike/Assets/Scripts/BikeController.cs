@@ -8,6 +8,9 @@ public class BikeController : MonoBehaviour
     public float forcePower;
     public float torquePower;
     public Rigidbody rb;
+    public float turnThreshHold;
+    public BarsController hbAxis;
+    public float turnSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +29,20 @@ public class BikeController : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             rb.AddForce(transform.forward * forcePower);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.AddTorque(transform.up * torquePower);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.AddTorque(transform.up * -torquePower);
+
+            if (Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation) > turnThreshHold)
+            {
+                if ((hbAxis.midPoint - hbAxis.currentAxisRoation) > hbAxis.midPoint)
+                {
+                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation) * torquePower * turnSpeed);
+                }
+                else
+                {
+                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation) * torquePower * -turnSpeed);
+                }
+            }
+
+            Debug.Log(Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation));
         }
     }
 }
