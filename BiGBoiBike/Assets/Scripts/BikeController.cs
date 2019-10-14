@@ -30,15 +30,15 @@ public class BikeController : MonoBehaviour
         {
             rb.AddForce(transform.forward * forcePower);
 
-            if (Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation) > turnThreshHold)
+            if (Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) > turnThreshHold)
             {
-                if ((hbAxis.midPoint - hbAxis.currentAxisRoation) > hbAxis.midPoint)
+                if ((hbAxis.currentAxisRoation - hbAxis.midPoint) > 0)
                 {
-                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation) * torquePower * turnSpeed);
+                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) * torquePower * turnSpeed);
                 }
                 else
                 {
-                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation) * torquePower * -turnSpeed);
+                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) * torquePower * -turnSpeed);
                 }
             }
 
