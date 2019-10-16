@@ -11,6 +11,8 @@ public class BikeController : MonoBehaviour
     public float turnThreshHold;
     public BarsController hbAxis;
     public float turnSpeed;
+    public float brakes;
+    public float startDrag;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,8 @@ public class BikeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+ 
+        
 
     }
 
@@ -28,21 +32,33 @@ public class BikeController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(transform.forward * forcePower);
-
-            if (Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) > turnThreshHold)
+            rb.AddForce(transform.forward * forcePower, ForceMode.Acceleration); 
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            rb.drag = brakes;
+        }
+        else
+        {
+            rb.drag = startDrag;
+        }
+        /*
+        if (Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) > turnThreshHold)
+        {
+            if (Input.GetKey(KeyCode.W))
             {
                 if ((hbAxis.currentAxisRoation - hbAxis.midPoint) > 0)
                 {
-                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) * torquePower * turnSpeed);
+                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) * torquePower * rb.velocity.magnitude * turnSpeed);
                 }
                 else
                 {
-                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) * torquePower * -turnSpeed);
+                    rb.AddTorque(transform.up * Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) * torquePower * rb.velocity.magnitude * -turnSpeed);
                 }
             }
-
-            Debug.Log(Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation));
         }
+        */
+        //Debug.Log(Mathf.Abs(hbAxis.midPoint - hbAxis.currentAxisRoation));
+        //Debug.Log(rb.velocity.magnitude);
     }
 }
