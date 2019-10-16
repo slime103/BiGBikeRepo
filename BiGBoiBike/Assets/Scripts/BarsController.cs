@@ -22,7 +22,7 @@ public class BarsController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x,Mathf.Clamp(transform.localEulerAngles.y, minRoation, maxRotation),transform.localEulerAngles.z);
         currentAxisRoation = transform.localEulerAngles.y;

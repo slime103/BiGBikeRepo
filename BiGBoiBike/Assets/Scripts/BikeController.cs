@@ -7,7 +7,9 @@ public class BikeController : MonoBehaviour
 
     public float forcePower;
     public float torquePower;
+    public float fakeTorquePower;
     public Rigidbody rb;
+    public Rigidbody frontWheel;
     public float turnThreshHold;
     public BarsController hbAxis;
     public float turnSpeed;
@@ -23,7 +25,17 @@ public class BikeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 
+
+        // fake physics
+
+    //   if (Input.GetKey(KeyCode.A))
+    //     {
+    //         rb.transform.Rotate(new Vector3(0,-1,0)*fakeTorquePower); 
+    //     }
+    //     if (Input.GetKey(KeyCode.D))
+    //     {
+    //         rb.transform.Rotate(new Vector3(0,1,0)*fakeTorquePower); 
+    //     }
         
 
     }
@@ -38,6 +50,18 @@ public class BikeController : MonoBehaviour
         {
             rb.drag = brakes;
         }
+
+        // real physics -- adds torque to bike
+
+      if (Input.GetKey(KeyCode.A))
+        {
+            rb.AddTorque(new Vector3(0,-1,0)*torquePower); 
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            rb.AddTorque(new Vector3(0,1,0)*torquePower); 
+        }
+
         else
         {
             rb.drag = startDrag;
