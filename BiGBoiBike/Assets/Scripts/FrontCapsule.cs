@@ -9,6 +9,7 @@ public class FrontCapsule : MonoBehaviour
     public BarsController hbAxis;
     public BikeController bkController;
     public Rigidbody backWheel;
+    public float turnThreshHold;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +23,10 @@ public class FrontCapsule : MonoBehaviour
         
     }
 
+    
     private void FixedUpdate()
     {
-        if (Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) > bkController.turnThreshHold)
+        if (Mathf.Abs(hbAxis.currentAxisRoation - hbAxis.midPoint) > turnThreshHold)
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -39,4 +41,5 @@ public class FrontCapsule : MonoBehaviour
             }
         }
     }
+    
 }

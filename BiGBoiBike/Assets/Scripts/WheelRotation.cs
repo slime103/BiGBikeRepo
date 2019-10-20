@@ -6,13 +6,18 @@ public class WheelRotation : MonoBehaviour
 {
 
     public LayerMask ground;
-    public Rigidbody BikeRb;
     public float rayDist;
+    public Rigidbody bikeRb;
+    float tempTorquePower;
+    public BikeController BkController;
+    public FrontCapsule fCapsule;
+    float tempTforce;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        tempTorquePower = BkController.torquePower;
+        tempTforce = fCapsule.turnForce;
     }
 
     // Update is called once per frame
@@ -23,13 +28,22 @@ public class WheelRotation : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(tiltRay, out hit, rayDist, ground))
         {
-
+            BkController.torquePower = tempTorquePower;
+            fCapsule.turnForce = tempTforce;
+        }
+        else
+        {
+            Debug.Log("Flying!");
+            tempTorquePower = BkController.torquePower;
+            tempTforce = fCapsule.turnForce;
+            BkController.torquePower = 0;
+            fCapsule.turnForce = 0;
         }
         
     }
 
     private void FixedUpdate()
     {
-        transform.Rotate(-BikeRb.velocity.magnitude, 0, 0);
+        transform.Rotate(-bikeRb.velocity.magnitude, 0, 0);
     }
 }

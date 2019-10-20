@@ -27,12 +27,12 @@ public class BarsController : MonoBehaviour
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x,Mathf.Clamp(transform.localEulerAngles.y, minRoation, maxRotation),transform.localEulerAngles.z);
         currentAxisRoation = transform.localEulerAngles.y;
 
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)))
         {
 
             return;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             currentRotation +=  rotateSpeed * Time.deltaTime;
             transform.localEulerAngles =
@@ -40,16 +40,17 @@ public class BarsController : MonoBehaviour
 
             
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             currentRotation -= rotateSpeed * Time.deltaTime;
             transform.localEulerAngles =
                 new Vector3(transform.localEulerAngles.x, Mathf.Clamp(transform.localEulerAngles.y + currentRotation, minRoation, maxRotation), transform.localEulerAngles.z);
 
         }
-        if(Input.GetKeyUp(KeyCode.A)|| Input.GetKeyUp(KeyCode.D))
+        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
         {
             currentRotation = 0;
         }
+        Debug.Log(Mathf.Abs(currentAxisRoation - midPoint));
     }
 }
